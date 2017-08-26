@@ -8,27 +8,28 @@ Created on Thu Aug 24 12:10:40 2017
 from os import listdir
 import PIL.Image
 import PIL.ImageEnhance
-y=1
+y=100
 
 
 
-dirListing = listdir(r"C:/Users/enter/enter/abc/xyzFolder")  #enter directory/folder of the photos you want to add logo to.
+dirListing = listdir(r"C:/Users/vedan/Desktop")  #enter directory/folder of the photos you want to add logo to.
 
 editFiles = []                                   #creates list which will fill up with all images from specified directory above.
 
 for item in dirListing:                          #loops through directory and fills list with .JPG (specify according to user) .   
-    if (".JPG") in item:
+    if (".jpg") in item:
         editFiles.append(item)
 print (editFiles)
+print (len(editFiles))
 
 for i in range (0, len(editFiles)):              #performs  action on the photos in list
     # images
     
     base_path = editFiles[i]                    #pass image files in list to variable base_path
     
-    watermark_path ='something/somethin/ieee.png'                  #sepecify the path of the ieee logo here. 
+    watermark_path ='ieee.png'                  #sepecify the path of the ieee logo here. 
     
-    watermark_path2 = '/something/something/vitlogo.png'             #specify the path of the vit logo here.
+    watermark_path2 = 'vitlogo.png'             #specify the path of the vit logo here.
     base = PIL.Image.open(base_path)            
     width, height= base.size
     watermark = PIL.Image.open(watermark_path)  #opens watermark and pass to watermark variable
@@ -44,7 +45,7 @@ for i in range (0, len(editFiles)):              #performs  action on the photos
 
     # apply the watermark
     
-    some_xy_offset = (10, 20)                      # x and y cood of ieee logo
+    some_xy_offset = (int(width/192), int(height/54))                      # x and y cood of ieee logo
     some_xy2_offset = (int(width-width/4)-15, 10)  #x and y cood of vit logo
 
     
@@ -56,7 +57,8 @@ for i in range (0, len(editFiles)):              #performs  action on the photos
     base.paste(watermark, some_xy_offset, mask=watermark)        #applies the logo 
     base.paste(watermark2, some_xy2_offset, mask=watermark2)     #applies the logo 
     
-    base.save('LogoWithImage'+ str(y)+ '.JPG')                    #name+ someNumber of saved image
-    base.show()                                                   #display each image
+    base.save('ycpics/ImageWithLogo'+ str(y)+ '.JPG')                    #name+ someNumber of saved image
+    #base.show()                                                   #display each image
     y=y+1
 
+base.show()
